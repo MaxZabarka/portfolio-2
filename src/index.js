@@ -6,7 +6,7 @@ import App from "./App";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Canvas camera={{fov:35, position:[0,0,13]}}>
+    <Canvas shadows camera={{fov:35, position:[0,0,13]}}>
       <App />
     </Canvas>
   </React.StrictMode>

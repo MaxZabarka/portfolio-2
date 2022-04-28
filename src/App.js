@@ -1,7 +1,7 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import "./App.css";
 import { Vector3 } from "three";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { PlaneGeometry } from "three";
 import { OrbitControls } from "@react-three/drei";
 import { easeOutElastic } from "./util/easings";
@@ -10,13 +10,21 @@ import clamp from "./util/clamp";
 function lerp(a, b, t) {
   return (1 - t) * a + t * b;
 }
-const GAP_SIZE = 0.5;
 const BACKGROUND_DISTANCE = 10;
-const LIGHT_RADIUS = 2;
+const LIGHT_RADIUS = 0.03;
 
 function App() {
-  const rows = 5;
-  const cols = 5;
+  const [gridConfig, setGridConfig] = useState({
+    rows: 10,
+    cols: 10,
+    gap_size: 0.5,
+    shape_size: 1,
+  })
+
+
+
+  const grid_width = (gridConfig.cols-1) * (gridConfig.gap_size + gridConfig.shape_size) ;
+  const grid_height = (gridConfig.rows-1) * (gridConfig.gap_size + gridConfig.shape_size);
 
   const mouseLights = useRef(null);
   const planeRef = useRef(null);
@@ -53,52 +61,17 @@ function App() {
       y: (fov_y * mouse.y) / 2,
       x: (fov_y * camera.aspect * mouse.x) / 2,
     };
-    const ACCELERATION = 0.002;
-    const MAX_SPEED = Infinity;
 
-    const x_distance_to_target = Math.abs(
-      mouseLights.current.position.x - target.x
+    mouseLights.current.position.x = lerp(
+      mouseLights.current.position.x,
+      target.x,
+      8 * delta
     );
-    if (mouseLights.current.position.x > target.x) {
-      lightSpeed.current.x = clamp(
-        lightSpeed.current.x - ACCELERATION * delta * 200,
-        -MAX_SPEED,
-        MAX_SPEED
-      );
-    } else {
-      lightSpeed.current.x = clamp(
-        lightSpeed.current.x + ACCELERATION * delta * 200,
-        -MAX_SPEED,
-        MAX_SPEED
-      );
-    }
-    if (x_distance_to_target < 1 && (lightSpeed.current.x > 0.005 || lightSpeed.current.x < -0.005) ) {
-      lightSpeed.current.x = lightSpeed.current.x*0.95;
-    }
-
-    // y
-    const y_distance_to_target = Math.abs(
-      mouseLights.current.position.y - target.y
+    mouseLights.current.position.y = lerp(
+      mouseLights.current.position.y,
+      target.y,
+      8 * delta
     );
-    if (mouseLights.current.position.y > target.y) {
-      lightSpeed.current.y = clamp(
-        lightSpeed.current.y - ACCELERATION * delta * 200,
-        -MAX_SPEED,
-        MAX_SPEED
-      );
-    } else {
-      lightSpeed.current.y = clamp(
-        lightSpeed.current.y + ACCELERATION * delta * 200,
-        -MAX_SPEED,
-        MAX_SPEED
-      );
-    }
-    if (y_distance_to_target < 1 && (lightSpeed.current.y > 0.005 || lightSpeed.current.y < -0.005) ) {
-      lightSpeed.current.y = lightSpeed.current.y*0.95;
-    }
-    mouseLights.current.position.x += lightSpeed.current.x * delta *150;
-    mouseLights.current.position.y += lightSpeed.current.y * delta * 150;
-    
   });
 
   return (
@@ -107,27 +80,29 @@ function App() {
       <group ref={mouseLights}>
         <pointLight
           position={[0, 0, -BACKGROUND_DISTANCE + LIGHT_RADIUS]}
-          intensity={1}
+          intensity={2}
         />
+        {/* <pointLight shadow={true}  position={[0, 0, 2]} intensity={0.5} /> */}
       </group>
-      <group ref={shapesRef}>
-        {Array(5)
+      {/* <ambientLight intensity={0.1} /> */}
+      <group ref={shapesRef} position={[-grid_width/2, grid_height / 2, 0]}>
+        {Array(gridConfig.rows)
           .fill()
           .map((_, i) => {
             return (
-              <group position={[0, -i * (1 + GAP_SIZE), 0]}>
-                {Array(10)
+              <group position={[0, -i * (1 + gridConfig.gap_size), 0]}>
+                {Array(gridConfig.cols)
                   .fill()
                   .map((_, j) => {
                     return (
-                      <mesh position={[j * (1 + GAP_SIZE), 0, 0]}>
+                      <mesh position={[j * (1 + gridConfig.gap_size), 0, 0]}>
                         <meshStandardMaterial
                           flatShading={false}
-                          roughness={0}
+                          roughness={0.3}
                         />
                         <sphereGeometry
                           computeVertexNormals={true}
-                          args={[0.5, 15, 15]}
+                          args={[gridConfig.shape_size/2, 15, 15]}
                         />
                       </mesh>
                     );
