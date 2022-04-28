@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { PlaneGeometry } from "three";
 import { OrbitControls } from "@react-three/drei";
 import { easeOutElastic } from "./util/easings";
+import clamp from "./util/clamp";
 
 function lerp(a, b, t) {
   return (1 - t) * a + t * b;
@@ -41,35 +42,68 @@ function App() {
     // }
   });
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     const { mouse, camera } = state;
-    // dampedMouse.current.x += easeOutElastic(mouse.x - dampedMouse.current.x) * 0.01;
-    // dampedMouse.current.y += easeOutElastic(mouse.y - dampedMouse.current.y) * 0.01;
-    // const completion = mouse.x - dampedMouse.current.x;
-    // console.log("completion", 1 - Math.abs(completion));
-    // dampedMouse.current.x += easeOutElastic(completion)*0.1;
 
-    // let completion += completion - mouse.x
-    // console.log('completion', completion)
+    const ang_rad = (camera.fov * Math.PI) / 180;
+    const distance = BACKGROUND_DISTANCE + camera.position.z + LIGHT_RADIUS;
+    const fov_y = distance * Math.tan(ang_rad / 2) * 2;
 
+    const target = {
+      y: (fov_y * mouse.y) / 2,
+      x: (fov_y * camera.aspect * mouse.x) / 2,
+    };
+    const ACCELERATION = 0.002;
+    const MAX_SPEED = Infinity;
 
-    var vector = new Vector3(
-      x,
-      y,
-      BACKGROUND_DISTANCE
+    const x_distance_to_target = Math.abs(
+      mouseLights.current.position.x - target.x
     );
-    vector.unproject(camera);
-    var dir = vector.sub(camera.position).normalize();
-    var distance =
-      -(camera.position.z + BACKGROUND_DISTANCE + LIGHT_RADIUS) / dir.z;
-    var pos = camera.position.clone().add(dir.multiplyScalar(distance));
-    mouseLights.current.position.set(pos.x, pos.y);
-    // console.log("pos", pos);
+    if (mouseLights.current.position.x > target.x) {
+      lightSpeed.current.x = clamp(
+        lightSpeed.current.x - ACCELERATION * delta * 200,
+        -MAX_SPEED,
+        MAX_SPEED
+      );
+    } else {
+      lightSpeed.current.x = clamp(
+        lightSpeed.current.x + ACCELERATION * delta * 200,
+        -MAX_SPEED,
+        MAX_SPEED
+      );
+    }
+    if (x_distance_to_target < 1 && (lightSpeed.current.x > 0.005 || lightSpeed.current.x < -0.005) ) {
+      lightSpeed.current.x = lightSpeed.current.x*0.95;
+    }
+
+    // y
+    const y_distance_to_target = Math.abs(
+      mouseLights.current.position.y - target.y
+    );
+    if (mouseLights.current.position.y > target.y) {
+      lightSpeed.current.y = clamp(
+        lightSpeed.current.y - ACCELERATION * delta * 200,
+        -MAX_SPEED,
+        MAX_SPEED
+      );
+    } else {
+      lightSpeed.current.y = clamp(
+        lightSpeed.current.y + ACCELERATION * delta * 200,
+        -MAX_SPEED,
+        MAX_SPEED
+      );
+    }
+    if (y_distance_to_target < 1 && (lightSpeed.current.y > 0.005 || lightSpeed.current.y < -0.005) ) {
+      lightSpeed.current.y = lightSpeed.current.y*0.95;
+    }
+    mouseLights.current.position.x += lightSpeed.current.x * delta *150;
+    mouseLights.current.position.y += lightSpeed.current.y * delta * 150;
+    
   });
 
   return (
     <>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <group ref={mouseLights}>
         <pointLight
           position={[0, 0, -BACKGROUND_DISTANCE + LIGHT_RADIUS]}
