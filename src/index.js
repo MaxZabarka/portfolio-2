@@ -10,8 +10,18 @@ root.render(
       <App />
     </Canvas>
     <div className="home">
+      <nav>
+        <div className="brand">
+          <h1>MAX ZABARKA</h1>
+        </div>
+        <ul className="links">
+          <li>About</li>
+          <li>Work</li>
+          <li>Contact</li>
+        </ul>
+      </nav>
       <span>
-        <h1>LETS TURN YOUR IDEAS INTO REALITY</h1>
+        <h1>LET'S TURN YOUR IDEAS INTO REALITY</h1>
         <h2>WEB DEVELOPER BASED IN CALGARY, ALBERTA</h2>
       </span>
     </div>
