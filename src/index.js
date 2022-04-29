@@ -1,29 +1,22 @@
 import { Canvas } from "@react-three/fiber";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-
+import Home from "./components/Home";
+import NavBar from "./components/NavBar";
+import "./index.scss"
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Canvas shadows camera={{ fov: 35, position: [0, 0, 13] }}>
-      <App />
-    </Canvas>
-    <div className="home">
-      <nav>
-        <div className="brand">
-          <h1>MAX ZABARKA</h1>
-        </div>
-        <ul className="links">
-          <li>About</li>
-          <li>Work</li>
-          <li>Contact</li>
-        </ul>
-      </nav>
-      <span>
-        <h1>LET'S TURN YOUR IDEAS INTO REALITY</h1>
-        <h2>WEB DEVELOPER BASED IN CALGARY, ALBERTA</h2>
-      </span>
-    </div>
+    <NavBar/>
+    <Home/>
+
   </React.StrictMode>
 );
+
+//TODO
+// add custom cursor
+// limit number of objects for performance
+// text animation
+// delta time for gsap
+// performance optimizations
+// optimize traversal
