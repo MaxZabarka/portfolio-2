@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import Shape from "./Shape";
 
 const ShapesGrid = forwardRef((props, ref) => {
-  const rows = 7;
+  const rows = 8;
   const cols = 15;
   const size = 0.5;
   const gap = 1;
