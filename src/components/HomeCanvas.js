@@ -103,7 +103,7 @@ function HomeCanvas() {
       <mesh position={[0, 0, -BACKGROUND_DISTANCE]} ref={planeRef}>
         <meshStandardMaterial flatShading={false} roughness={1} />
       </mesh>
-      <Stats showPanel={0} className="stats" />
+      {/* <Stats showPanel={0} className="stats" /> */}
       {/* <OrbitControls /> */}
       <Post />
     </>

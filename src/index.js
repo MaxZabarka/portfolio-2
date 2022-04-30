@@ -11,7 +11,6 @@ root.render(
     <NavBar/>
     <Home/>
     <About/>
-    <h1>test</h1>
   </React.StrictMode>
 );
 
@@ -22,3 +21,5 @@ root.render(
 // delta time for gsap
 // performance optimizations
 // optimize traversal
+// touchstart event
+// only add light once mouse moved
