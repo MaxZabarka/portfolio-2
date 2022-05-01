@@ -28,7 +28,6 @@
     // padding: 2rem;
     // transform: translateY(-5vh);
 
-
     h1 {
       word-wrap: break-word;
       white-space: nowrap;
@@ -42,7 +41,7 @@
       line-height: 100%;
       text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.3);
       margin-bottom: 0;
-      transition: 2s ease-in-out transform;
+      transition: 1.5s ease-in-out transform, 1.5s ease-in-out opacity;
     }
     h1.fade-right {
       opacity: 0;
@@ -52,23 +51,17 @@
       opacity: 0;
       transform: translateX(-50%);
     }
-    h1 {
-      span {
-        opacity: 0;
-        animation: fade-in-out 2s ease forwards;
-      }
-    }
+
     h2 {
-      padding-top: 1rem;
+      padding-top: 0.5rem;
       margin: auto;
       margin-top: 0;
       backdrop-filter: blur(2px);
       font-weight: 200;
       font-size: 1.25rem;
-      opacity: 0.9;
       text-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5);
       opacity: 0;
-      animation: fade-in-out 2s ease 2.4s forwards;
+      animation: fade-in-out 3s ease forwards;
     }
     h2.fade {
       opacity: 0;
@@ -81,6 +74,6 @@
     opacity: 0;
   }
   100% {
-    opacity: 1;
+    opacity: 0.7;
   }
 }

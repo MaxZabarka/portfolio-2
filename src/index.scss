@@ -6,6 +6,7 @@
 }
 
 body {
+  // cursor: none;
   font-family: "Roboto Condensed";
   color: white;
   background: black;
@@ -15,11 +16,3 @@ body {
   // animation: fade-in-out 10s ease-out;
 }
 
-@keyframes fade-in-out {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}

@@ -1,14 +1,16 @@
 import { Canvas } from "@react-three/fiber";
 import React from "react";
 import useBackgroundPlane from "../hooks/useBackgroundPlane";
+import useIntersectionObserver from "../hooks/useIntersectionObserver";
 import useMouseObject from "../hooks/useMouseObject";
 import "./About.scss";
 import AboutCanvas from "./AboutCanvas";
 
-const About = () => {
+const About = (props) => {
+  const aboutRef = useIntersectionObserver(props.onScrollIn);
   return (
-    <div className="About">
-        <div className="page-1">
+    <div ref={aboutRef} className="About">
+      <div className="page-1">
         <div className="content">
           <h1>I DESIGN AND BUILD DIGITAL PRODUCTS</h1>
           <p>
@@ -18,12 +20,13 @@ const About = () => {
         </div>
       </div>
       <div className="about-canvas-wrapper">
-          
-        <Canvas className="about-canvas">
+        <Canvas
+          camera={{ fov: 15, position: [0, 0, 25] }}
+          className="about-canvas"
+        >
           <AboutCanvas />
         </Canvas>
       </div>
-      
     </div>
   );
 };

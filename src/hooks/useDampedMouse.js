@@ -43,7 +43,6 @@ const useDampedMouse = (damp, canvasClassName) => {
       const scrollAmount = prevScrollY - window.scrollY;
       prevScrollY = window.scrollY;
 
-      // /1.1 for 110vh
       mouse.current.y =
         ((pageY - scrollAmount - distanceFromTop) /
           window.innerHeight /
@@ -55,13 +54,14 @@ const useDampedMouse = (damp, canvasClassName) => {
 
     window.addEventListener("mousemove", mouseMoveHandler);
     window.addEventListener("scroll", scrollHandler, false);
+
     // document.addEventListener("touchstart", (e) => {
     //   const touch = e.changedTouches[0];
     //   mouse.x = (touch.pageX / (window.innerWidth + 10) - 0.5) * 2;
     //   // /1.1 for 110vh
     //   mouse.y = (touch.pageY / window.innerHeight / 1.1 - 0.5) * -2;
     // });
-  }, []);
+  }, [canvasClassName]);
 
   useFrame((_, delta) => {
     dampedMouse.current.x = lerp(

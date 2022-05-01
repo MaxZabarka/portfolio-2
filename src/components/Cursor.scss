@@ -1,0 +1,33 @@
+.Cursor1 {
+    // display: none;
+  z-index: 100000;
+  width: 60px;
+  height: 60px;
+  //   border: 2px solid #fff;
+  // opacity: 0.5;
+  //   background: white;
+  backdrop-filter: brightness(1.2) ;
+  border-radius: 50%;
+  border: 1px solid #fff;
+    opacity: 0.3;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  //   background: red;
+
+}
+.Cursor2 {
+    // display: none;
+    // backdrop-filter: brightness(1.5) saturate(0.5);
+
+    z-index: 100001;
+    width: 30px;
+    height: 30px;
+    opacity: 0.5;
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    // background: white;
+        // border: 1px solid #fff;
+
+
+}

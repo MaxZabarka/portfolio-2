@@ -4,7 +4,7 @@ import lerp from "../util/lerp";
 import useDampedMouse from "./useDampedMouse";
 
 const useMouseObject = (backgroundDistance, canvasClassName) => {
-  const dampedMouse = useDampedMouse(8, canvasClassName);
+  const dampedMouse = useDampedMouse(5, canvasClassName);
   const objectRef = useRef(null);
 
   useFrame((state, delta) => {
