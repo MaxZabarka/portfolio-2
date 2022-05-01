@@ -12,11 +12,9 @@ root.render(
 );
 
 //TODO
-// add custom cursor
 // limit number of objects for performance
-// text animation
-// delta time for gsap
 // performance optimizations
 // optimize traversal
 // touchstart event
 // only add light once mouse moved
+// magnetic mouse interactions

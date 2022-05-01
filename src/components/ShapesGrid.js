@@ -18,12 +18,13 @@ const ShapesGrid = forwardRef((props, ref) => {
         .fill()
         .map((_, i) => {
           return (
-            <group position={[0, -i * (size + gap), 0]}>
+            <group key={i} position={[0, -i * (size + gap), 0]}>
               {Array(cols)
                 .fill()
                 .map((_, j) => {
                   return (
                     <Shape
+                      key={j}
                       size={size}
                       position={[
                         j * (size + gap) +

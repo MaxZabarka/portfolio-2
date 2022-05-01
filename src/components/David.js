@@ -3,11 +3,11 @@ import React, { forwardRef, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 const David = forwardRef((props, ref) => {
-  const { nodes, materials } = useGLTF("/david.gltf");
+  const { nodes, materials } = useGLTF("/assets/david.gltf");
   return (
     <group ref={ref} {...props} dispose={null}>
       <mesh
-      scale={0.25}
+      scale={0.2}
         castShadow
         receiveShadow
         geometry={
@@ -20,5 +20,5 @@ const David = forwardRef((props, ref) => {
   );
 })
 
-useGLTF.preload("/david.gltf");
+useGLTF.preload("/assets/david.gltf");
 export default David

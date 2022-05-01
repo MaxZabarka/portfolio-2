@@ -12,10 +12,14 @@ const About = (props) => {
     <div ref={aboutRef} className="About">
       <div className="page-1">
         <div className="content">
-          <h1>I DESIGN AND BUILD DIGITAL PRODUCTS</h1>
+          <h1>
+            I design and build
+            <br />
+            <bold>digital products</bold>
+          </h1>
           <p>
-            I AM A DESIGNER AND FULL STACK DEVELOPER WITH A WIDE RANGE OF
-            EXPERIENCE IN VARIOUS DIGITAL AND ARTISTIC DISCIPLINES.
+            I am a designer and developer with a wide range of experience in
+            various digital and artistic disciplines
           </p>
         </div>
       </div>
